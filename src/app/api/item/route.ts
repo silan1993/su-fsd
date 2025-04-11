@@ -20,7 +20,14 @@ const regexSort = (a: string, b: string, asc = true) => {
   
       // Compare numbers numerically and strings lexicographically
       if (typeof A[i] === 'number' && typeof B[i] === 'number') {
-        return asc ? (A[i] - B[i]) : (B[i] - A[i]);
+        if (typeof A[i] === 'number' && typeof B[i] === 'number') {
+          if (typeof A[i] === 'number' && typeof B[i] === 'number') {
+            return asc ? Number(A[i]) - Number(B[i]) : Number(B[i]) - Number(A[i]);
+          }
+          throw new Error('Invalid comparison between non-numeric values');
+        } else {
+          return asc ? (A[i] > B[i] ? 1 : -1) : (A[i] < B[i] ? 1 : -1);
+        }
       } else {
         return asc ? (A[i] > B[i] ? 1 : -1) : (A[i] < B[i] ? 1 : -1);
       }
